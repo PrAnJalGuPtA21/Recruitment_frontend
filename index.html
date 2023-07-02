@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Recruitment solution app!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Left Panel -->
+    <div class="navbar">
+        <h1>Recruitment App </h1>
+        <ul id="remove">
+            <li><a href="#" onclick="showContent('home')">Home</a></li>
+            <li><a href="#" onclick="showContent('log')">Login</a></li>
+            <li><a href="#" onclick="showContent('signup')">Sign Up</a></li>
+            <li><a href="#" onclick="showContent('search')">Search </a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div id="home" style="display: none;">
+            <div class="home-cont">
+                <h1>Welcome to the JOB Portal</h1>
+                <div class="features">
+                    <div class="feature">
+                        <div class="container">
+                            <div class="box">
+                                <span class="title">Efficient Hiring</span>
+                                <div>
+                                    <p>Streamline your hiring process and find the best talent quickly and efficiently.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="container">
+                            <div class="box">
+                                <span class="title">User-Friendly Interface</span>
+                                <div>
+                                    <p>Intuitive and easy-to-use interface for hiring managers and HR professionals.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="container">
+                            <div class="box">
+                                <span class="title">Advanced Tools</span>
+                                <div>
+                                    <p>Access a range of advanced tools for candidate assessment and evaluation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="benefits">
+                    <div class="container">
+                        <div class="box">
+                            <span class="title">Key Benefits</span>
+                            <div>
+                                <p>Save time and effort in the hiring process, reduce costs, and discover top talent.
+                                </p>
+                                <p>Sign up now and experience a seamless recruitment solution.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- login form  -->
+        <div id="log" style="display:none;">
+            <div class="login">
+                <form id="login">
+                    <h2>User Login</h2>
+                    <label for="loginUsername">Username</label>
+                    <input type="text" id="loginUsername" required>
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup form -->
+        <div id="signup" style="display: none;">
+            <div class="sign">
+                <form id="registrationForm">
+                    <h2>Sign Up !</h2>
+                    <label for="registrationUsername">Username</label>
+                    <input type="text" id="registrationUsername" required>
+                    <label for="registrationPassword">Password</label>
+                    <input type="password" id="registrationPassword" required>
+                    <label for="registrationPassword">Confirm Password</label>
+                    <input type="password" id="registrationPassword" required>
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div id="search" style="display: none;">
+            <div class="search-container">
+                <h2>Candidate Search</h2>
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="Enter location">
+                <label for="jobRole">Job Role</label>
+                <input type="text" id="jobRole" placeholder="Enter job role">
+                <button id="searchButton">Search</button>
+            </div>
+
+            <ul class="candidate-list" id="candidateList">
+                <!-- Fetched candidates will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showContent(contentId) {
+
+            var contentDivs = document.getElementsByClassName('content')[0].children;
+            for (var i = 0; i < contentDivs.length; i++) {
+                contentDivs[i].style.display = 'none';
+            }
+
+            document.getElementById(contentId).style.display = 'block';
+
+            var links = document.getElementsByTagName('a');
+            for (var j = 0; j < links.length; j++) {
+                links[j].classList.remove('active');
+            }
+            event.target.classList.add('active');
+        }
+
+        // Search started -- >
+        document.getElementById("searchButton").addEventListener("click", function (event) {
+            event.preventDefault();
+
+            var location = document.getElementById("location").value;
+            var jobRole = document.getElementById("jobRole").value;
+
+
+            var candidates = [
+                { name: "John Doe", location: "New York", jobRole: "Software Engineer" },
+                { name: "Jane Smith", location: "San Francisco", jobRole: "Product Manager" },
+                { name: "Mike Johnson", location: "London", jobRole: "Data Scientist" },
+                { name: "Emily Brown", location: "Sydney", jobRole: "UX Designer" }
+            ];
+
+            var candidateList = document.getElementById("candidateList");
+            candidateList.innerHTML = "";
+
+            if (candidates.length > 0) {
+                for (var i = 0; i < candidates.length; i++) {
+                    var candidate = candidates[i];
+                    var listItem = document.createElement("li");
+                    listItem.innerHTML = "<strong>Name:</strong> " + candidate.name + "<br>" +
+                        "<strong>Location:</strong> " + candidate.location + "<br>" +
+                        "<strong>Job Role:</strong> " + candidate.jobRole;
+                    candidateList.appendChild(listItem);
+                }
+            } else {
+                var listItem = document.createElement("li");
+                listItem.textContent = "No candidates found.";
+                candidateList.appendChild(listItem);
+            }
+        });
+    </script>
+</body>
+
+</html>
